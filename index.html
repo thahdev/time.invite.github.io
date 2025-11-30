@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دعوة السفر عبر الزمن لساعة وحدة</title>
+    <style>
+        /* التنسيق الأساسي للموقع */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #d9534f; /* لون أحمر حلو */
+        }
+
+        /* تنسيق زرار (Button) */
+        button {
+            background-color: #5cb85c; /* أخضر */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+
+        /* إخفاء عناصر قبل الاحتفال */
+        #celebration-section, #bean-info {
+            display: none;
+            margin-top: 30px;
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+        }
+
+        /* عشان نخفي الألعاب النارية (هنا ممكن تستخدم صور GIF أو CSS animations) */
+        .fireworks {
+            font-size: 50px;
+            margin-bottom: 20px;
+            animation: flash 1s infinite alternate;
+        }
+        @keyframes flash {
+            from { opacity: 0.5; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div id="initial-invitation">
+            <h1>⏰ دعوة سفر بالزمن ⏳</h1>
+            <p>الساعة الآن هي: <strong id="current-time"></strong></p>
+            <p>هل ترغب بالسفر في الزمن **ساعة واحدة إلى الأمام**؟</p>
+            <button onclick="acceptTimeTravel()">أي نعم، أريد السفر! ✨</button>
+        </div>
+
+        <div id="celebration-section">
+            <div class="fireworks">🎉 🚀 🎊</div>
+            <h2>تنبيه! تم السفر ساعة إلى الأمام بنجاح!</h2>
+            <p id="new-time-message"></p>
+            <p>🎁 **ألف مبروك على السفر الناجح!** استغل هاي الساعة الإضافية بكل خير!.</p>
+        </div>
+
+        <div id="bean-info">
+            <h3>🫘 معلومات كلش مهمة عن الفاصوليا 🫘</h3>
+            <p>بما إنه سافرت بالزمن، تستاهل هدية! تدري شنو الفاصوليا؟ شوف هاي الشغلات:</p>
+            <ul id="bean-list">
+                </ul>
+        </div>
+
+    </div>
+
+    <script>
+        // دالة لعرض الوقت الحالي
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('ar-IQ', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            document.getElementById('current-time').textContent = timeString;
+        }
+
+        // تحديث الوقت كل ثانية
+        setInterval(updateTime, 1000);
+        updateTime(); // عرض الوقت أول ما تنفتح الصفحة
+
+        // دالة السفر بالزمن والاحتفال
+        function acceptTimeTravel() {
+            // 1. حساب الوقت الجديد (ساعة إلى الأمام)
+            const oldTime = new Date();
+            oldTime.setHours(oldTime.getHours() + 1); // نضيف ساعة وحدة
+            const newTimeString = oldTime.toLocaleTimeString('ar-IQ', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+            // 2. إخفاء الدعوة وإظهار الاحتفال
+            document.getElementById('initial-invitation').style.display = 'none';
+            document.getElementById('celebration-section').style.display = 'block';
+            document.getElementById('bean-info').style.display = 'block';
+            document.getElementById('new-time-message').textContent = `الآن، حسب "سفرك"، الساعة الجديدة هي: ${newTimeString}.`;
+
+            // 3. إضافة معلومات الفاصوليا (جبناها من البحث)
+            const beanInfoList = document.getElementById('bean-list');
+            const infoArray = [
+                "🫛 الفاصوليا من **الفصيلة البقولية**، وتعتبر مصدر **للبروتين النباتي**.",
+                "❤️ تقلل من خطر الإصابة بأمراض القلب لأنها غنية **بالألياف**، وتخفض الكوليسترول الضار (LDL).",
+                "🦠 تحسن صحة الجهاز الهضمي بتقوية وظيفة الحاجز المعوي وزيادة **البكتيريا المفيدة**.",
+                "💪 تحتوي على **مضادات أكسدة** قوية، خاصة الحمراء والسوداء، وتساهم بتقوية المناعة.",
+                "🌱 تحتاج إلى **درجات حرارة عالية** للنمو (محصول صيفي)، وتسمى نباتاً **مستقبلاً للشمس** لأن أوراقها تنحني لمواجهة الشمس.",
+            ];
+
+            infoArray.forEach(info => {
+                const li = document.createElement('li');
+                li.textContent = info;
+                beanInfoList.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
